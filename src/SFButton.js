@@ -29,10 +29,10 @@ export default class SFButton extends Component {
         iconTitle:2,
         custom:3
     }
-
     static propTypes = {
         type:PropTypes.number.isRequired,
         tag:PropTypes.any,
+        direction:PropTypes.string,
         isAnimated:PropTypes.bool,
         defaultImage: PropTypes.number,
         selectImage: PropTypes.number,
@@ -59,11 +59,11 @@ export default class SFButton extends Component {
     static defaultProps = {
         isAnimated:false,
         tag:0,
-        titleColor:'black',
         titleAlign : 'center',
         titleFontSize : 16,
         titleFontWeight : 'normal',
-        defaultColor : 'white',
+        defaultColor : 'transparent',
+        direction:'row'
     };
     onPress = () => {
         if (this.props.onPress){
@@ -77,9 +77,6 @@ export default class SFButton extends Component {
         if (this.props.isAnimated){
             this.scale.setValue(0.8)
         }
-        if (this.props.onPressIn){
-            this.props.onPressIn(this.props.tag);
-        }
     }
     onPressOut = () => {
         this.setState({
@@ -87,9 +84,6 @@ export default class SFButton extends Component {
         })
         if (this.props.isAnimated){
             this.scale.setValue(1)
-        }
-        if (this.props.onPressOut){
-            this.props.onPressOut(this.props.tag);
         }
     }
     render_title = () => {
@@ -192,7 +186,7 @@ export default class SFButton extends Component {
         return(
             <View style={{
                 backgroundColor:bgColor,
-                flexDirection:'row',
+                flexDirection:this.props.direction,
                 alignItems:'center',
                 justifyContent:'center',
                 flex:1
@@ -230,17 +224,17 @@ export default class SFButton extends Component {
         }
     }
     render() {
-       return(
-           <TouchableWithoutFeedback onPress={this.onPress} onPressIn={this.onPressIn} onPressOut={this.onPressOut}>
-               <Animated.View
-                   style={
+        return(
+            <TouchableWithoutFeedback onPress={this.onPress} onPressIn={this.onPressIn} onPressOut={this.onPressOut}>
+                <Animated.View
+                    style={
                         [this.props.containerStyle,{overflow:'hidden',transform:[{scale:this.scale}]}]
-                   }
-               >
+                    }
+                >
                     {this.renderContainer()}
-               </Animated.View>
-           </TouchableWithoutFeedback>
-       )
+                </Animated.View>
+            </TouchableWithoutFeedback>
+        )
 
     }
 
