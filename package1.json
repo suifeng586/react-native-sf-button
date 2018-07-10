@@ -1,0 +1,16 @@
+{
+  "name": "react-native-sf-button",
+  "version": "1.1.5",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suifeng586/react-native-sf-button.git"
+  },
+  "preferGlobal": true,
+  "author": "suifeng586",
+  "license": "ISC"
+}

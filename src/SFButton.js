@@ -13,6 +13,7 @@ import {
     ImageBackground
 } from "react-native";
 import PropTypes from 'prop-types'
+import callOnceInInterval from "./CallOnceInInterval"
 const resolveAssetSource = Image.resolveAssetSource;
 export default class SFButton extends Component {
 
@@ -209,7 +210,8 @@ export default class SFButton extends Component {
             </View>
         )
     }
-    render_custom = () => {
+
+    render_children = () => {
         return this.props.children
     }
     renderContainer = () => {
@@ -220,12 +222,15 @@ export default class SFButton extends Component {
         }else if (this.props.type == 2){
             return this.render_iconTitle()
         }else if (this.props.type == 3){
-            return this.render_custom()
+            return this.render_children()
         }
     }
     render() {
         return(
-            <TouchableWithoutFeedback onPress={this.onPress} onPressIn={this.onPressIn} onPressOut={this.onPressOut}>
+            <TouchableWithoutFeedback
+                onPress={() => callOnceInInterval(this.onPress)}
+                onPressIn={() => callOnceInInterval(this.onPressIn)}
+                onPressOut={() => callOnceInInterval(this.onPressOut})>
                 <Animated.View
                     style={
                         [this.props.containerStyle,{overflow:'hidden',transform:[{scale:this.scale}]}]
